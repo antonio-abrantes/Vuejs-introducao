@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+	<style>
+		img{
+			width: 50px;
+		}
+		div{
+			margin: 10px;
+		}
+		.div-component{
+			padding: 10px;
+			border: 1px black solid;
+			width: 40%;
+			text-align: center
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app" >
+		<span :title="message"></span>
+		<img :src="imagem">
+		{{ message.toUpperCase() }} <hr>
+
+		<div>
+			<my-component></my-component>
+
+			<div is="my-component"></div>
+			<div>{{ reverse}}</div>	
+		</div>
+
+		<div>
+            My number: {{myNumber}}
+            <button @click="myNumber++">Click me</button><br>
+            {{myList}}
+		</div>
+		
+
+	</div>
+
+
+<script src="https://unpkg.com/vue/dist/vue.js" ></script>
+
+
+<script>
+
+	Vue.component('my-component', {
+		template: `<div class='div-component'>Div component! {{title}}</div>`,
+		data: function(){
+			return{ title: "Bay!" }
+		}
+	})
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Aplicação VueJS!',
+			imagem: './imagens/vuejs.jpg',
+			isVisible: true,
+			firstName: "Antonio",
+			lastName: "Abrantes",
+			myNumber: 0,
+			list:[
+				{text: 'item 1'},
+				{text: 'item 2'},
+				{text: 'item 3'},
+				{text: 'item 4'} 
+			]
+		},
+		computed:{
+			reverse: function(){
+				return this.message.split('').reverse().join('');
+			},
+			fullName: {
+				get: function(){
+					return this.firstName + " " + this.lastName;
+				},
+				set: function(newValue){
+					var names = newValue.split(' ');
+					this.firstName = names[0];
+					this.lastName = names[1];
+				}
+			},
+			myList: function(){
+                var number = this.myNumber;
+                var list = [];
+                while(number--){
+                    list.push(number);
+                }
+                return list;
+            }
+		},
+	})
+
+
+</script>
+</body>
+</html>

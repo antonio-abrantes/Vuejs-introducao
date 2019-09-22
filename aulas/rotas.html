@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+	<style>
+		img{
+			width: 50px;
+		}
+		div{
+			margin: 10px;
+		}
+		.div-component{
+			padding: 10px;
+			border: 1px black solid;
+			width: 40%;
+			text-align: center
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app" >
+		<span :title="message"></span>
+		<img :src="imagem">
+		{{ message.toUpperCase() }} <hr>
+        
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link> <br>
+        <router-view></router-view>
+		
+	</div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js" ></script>
+    <script src="https://unpkg.com/vue-router" ></script>
+
+
+<script>
+
+    const Home ={
+        template: `<div>Minha home</div>`
+    }
+
+    const About ={
+        template: `<div>Sobre a home! Bem vindo {{$route.params.name}} <hr>
+                <router-view></router-view>    
+        </div>`
+    }
+
+    const SubAbout1 ={
+        template: `<div>Subview1 de About - Teste</div>`
+    }
+
+    const routes = [
+        { path: '/', component: Home },
+        { path: '/about/:name', component: About,
+            children: [
+                { path: 'subabout1', component: SubAbout1 }
+            ]
+        }
+    ]
+
+    const router = new VueRouter({routes});
+
+    router.beforeEach((to, from, next) =>{
+        next(false)
+    })
+
+	var app = new Vue({
+        el: '#app',
+        router,
+		data: {
+			message: 'Aplicação VueJS!',
+            imagem: './imagens/vuejs.jpg'
+		},
+		computed:{
+
+		},
+	})
+
+</script>
+</body>
+</html>

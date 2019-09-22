@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+	<style>
+		img{
+			width: 50px;
+		}
+		div{
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app" >
+		<span :title="message"></span>
+		<img :src="imagem">
+		{{ message.toUpperCase() }}
+
+		<span v-if="isVisible">
+			<br/>
+			Span com v-if
+		</span>
+
+		<span v-show="isVisible">
+				<br/>
+				Span com v-show
+		</span>
+		<div>
+			<ul>
+				<li v-for="(item, index) in list" :key="index">
+					{{index}} -> {{item.text}}
+				</li>
+			</ul>
+			<span v-html="myHtml"></span>
+		</div>
+
+		<div>
+			<ul>
+				<li v-for="number in 10" v-if="number%2 != 1" >
+						{{5}} x {{number}} = {{5 * number}}
+				</li>
+			</ul>
+		</div>
+
+		<div>
+			<button @click="upCounter()">INCREMENTA</button>
+			<span>{{counter}}</span>
+		</div>
+
+		<div>
+			<hr>
+			<button @click="sendValue">Click me</button>
+		</div>
+	</div>
+
+	<div id="app2">
+		My value = {{myValue}}
+	</div>
+
+
+<script src="https://unpkg.com/vue/dist/vue.js" ></script>
+
+
+<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Aplicação VueJS!',
+			imagem: './imagens/vuejs.jpg',
+			isVisible: true,
+			list:[
+				{text: 'item 1'},
+				{text: 'item 2'},
+				{text: 'item 3'},
+				{text: 'item 4'} 
+			],
+			myHtml: "<input type='text'>",
+			counter: 0
+		},
+		created: function(){
+			console.log("Start App!!");
+		},
+		methods:{
+			upCounter: function(){
+				this.counter++
+			},
+			sendValue: function(){
+				app2.$emit('value', 555);
+			}
+		},
+	})
+
+	app.$on('abc', app.upCounter);
+
+	var app2 = new Vue({
+		el: '#app2',
+		data: {
+			myValue: 0
+		}
+	});
+
+	app2.$on('value', function(value){
+		this.myValue = value;
+	})
+
+</script>
+</body>
+</html>

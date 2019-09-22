@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+	<style>
+		img{
+			width: 50px;
+		}
+		div{
+			margin: 10px;
+		}
+		.div-component{
+			padding: 10px;
+			border: 1px black solid;
+			width: 40%;
+			text-align: center
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app" >
+		<span :title="message"></span>
+		<img :src="imagem">
+		{{ message.toUpperCase() }} <hr>
+
+        <input type="text" v-model="styles.color" />
+        <input type="text" v-model="styles.fontSize" />
+        <div :style="styles" >Hello World!</div>
+		
+    </div>
+    
+    <script src="https://unpkg.com/vue/dist/vue.js" ></script>
+
+    <!-- 
+        Vuex -> <script src="https://unpkg.com/vuex" ></script> ou $ npm install vuex
+        Vue Dev-Tools -> Plugin para Chromegit init
+     -->
+<script>
+
+	var app = new Vue({
+        el: '#app',
+		data: {
+			message: 'Aplicação VueJS!',
+            imagem: './imagens/vuejs.jpg',
+            styles: {
+                color: 'black',
+                fontSize: '16px'
+		    }
+		},
+		computed:{
+
+		},
+	})
+
+</script>
+</body>
+</html>

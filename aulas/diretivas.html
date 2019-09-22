@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+	<style>
+		img{
+			width: 50px;
+		}
+		div{
+			margin: 10px;
+		}
+		.div-component{
+			padding: 10px;
+			border: 1px black solid;
+			width: 40%;
+			text-align: center
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app" >
+		<span :title="message"></span>
+		<img :src="imagem">
+		{{ message.toUpperCase() }} <hr>
+
+        <div>
+            <input v-hello type="text">
+        </div>
+
+        <div v-color="color" style="padding: 5px">
+            <input type="text">
+        </div>
+
+        <div v-minha-diretiva style="padding: 5px">
+            <input type="text">
+        </div>
+		
+	</div>
+
+
+<script src="https://unpkg.com/vue/dist/vue.js" ></script>
+
+
+<script>
+
+    Vue.directive('hello', {
+        inserted: function(el){
+            el.value = "Aplicacao Vue"
+        }
+    });
+
+    Vue.directive('color',function(el, binding){
+        el.style.backgroundColor = binding.value;
+    });
+
+    Vue.directive('minha-diretiva',function(el, binding){
+        var angulo = 0;
+        el.addEventListener('click', function(){
+            angulo += 90;
+            el.style.transform = `rotateZ(${angulo}deg)`;
+        })
+    });
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Aplicação VueJS!',
+			imagem: './imagens/vuejs.jpg',
+            color: 'green'
+		},
+		computed:{
+			
+		},
+	})
+
+</script>
+</body>
+</html>

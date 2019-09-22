@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js</title>
+	<style>
+		img{
+			width: 50px;
+		}
+		div{
+			margin: 10px;
+		}
+		.div-component{
+			padding: 10px;
+			border: 1px black solid;
+			width: 40%;
+			text-align: center
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app" >
+		<span :title="message"></span>
+		<img :src="imagem">
+		{{ message.toUpperCase() }} <hr>
+
+        <div>
+            <input type="text" v-model="name"> {{name}} <br>
+            <input type="checkbox" value="A" v-model="myList">
+            <input type="checkbox" value="B" v-model="myList">
+            <input type="checkbox" value="C" v-model="myList">
+            {{myList}}
+            <hr>
+            <input type="checkbox" :true-value="5" :false-value="18" v-model="myCheck">
+            {{myCheck}}
+        </div>
+
+        <div>
+            <input type="radio" value="A" v-model="myRadio">
+            <input type="radio" value="B" v-model="myRadio">
+            <input type="radio" value="C" v-model="myRadio">
+            {{myRadio}}
+        </div>
+
+        <div>
+            <select v-model="mySelect1">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select><br>
+            {{mySelect1}} <br>
+            <select v-model="mySelect2" multiple>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select><br>
+            {{mySelect2}}
+        </div>
+
+        <div>
+            <input type="text" v-model="myText">
+
+            <div>
+                <ul>
+                    <li v-for="char in letras">{{char}}</li>
+                </ul>
+            </div>
+        </div>
+        
+		
+	</div>
+
+
+<script src="https://unpkg.com/vue/dist/vue.js" ></script>
+
+
+<script>
+
+    Vue.directive('hello', {
+        inserted: function(el){
+            el.value = "Aplicacao Vue"
+        }
+    });
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Aplicação VueJS!',
+            imagem: './imagens/vuejs.jpg',
+            name: '',
+            myList: [],
+            myCheck: '',
+            myRadio: '',
+            mySelect1: '',
+            mySelect2: [],
+            myText: ''
+		},
+		computed:{
+			letras: function(){
+                var letras = [];
+                var text = this.myText.split('');
+                text.forEach(element => {
+                    if(!letras.includes(element)){
+                        letras.push(element);
+                    }
+                });
+                return letras.sort();
+            }
+		},
+	})
+
+</script>
+</body>
+</html>
